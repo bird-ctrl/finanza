@@ -1,0 +1,33 @@
+{
+  "name": "finanzas-ai-finance-coach",
+  "version": "1.0.0",
+  "description": "AI-powered financial chatbot for Indian youth with voice integration",
+  "keywords": ["fintech", "ai", "chatbot", "finance", "education", "voice", "gemini"],
+  "homepage": "https://your-domain.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/finanzas.git"
+  },
+  "author": "Team Technocrats",
+  "license": "MIT",
+  "scripts": {
+    "start": "npx http-server -p 3000 -o",
+    "dev": "npx live-server --port=3000",
+    "build": "echo 'No build process required for static site'",
+    "test": "echo 'Manual testing required'",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

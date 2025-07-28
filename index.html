@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzas - Your Personal AI Finance Coach</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="finanzas-logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Finanzas</h1>
+            </div>
+            <div class="spinner"></div>
+            <p>Starting your finance journey...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-chart-line logo-icon"></i>
+                    <h1 class="app-title">Finanzas</h1>
+                    <span class="tagline">Your AI Finance Coach</span>
+                </div>
+                <div class="header-actions">
+                    <button id="clear-chat" class="btn-secondary" title="Clear Chat History">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button id="settings-btn" class="btn-secondary" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button id="close-settings" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="api-key-input">Gemini API Key:</label>
+                        <div class="input-group">
+                            <input type="password" id="api-key-input" placeholder="Enter your Gemini API key">
+                            <button id="toggle-api-key" class="btn-icon">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="help-text">Your API key is stored locally and never sent to our servers.</small>
+                    </div>
+                    <div class="setting-group">
+                        <label for="voice-toggle">Voice Responses:</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="voice-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label for="language-select">Language:</label>
+                        <select id="language-select">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-IN">English (India)</option>
+                            <option value="hi-IN">हिंदी (Hindi)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-settings" class="btn-primary">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <main class="chat-container">
+            <!-- Welcome Message -->
+            <div id="welcome-section" class="welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2>Welcome to Finanzas!</h2>
+                    <p>I'm your personal AI finance coach, here to help you learn about investing, budgeting, and building wealth. Start by asking me anything about finance!</p>
+                    <div class="quick-start-buttons">
+                        <button class="quick-btn" data-message="What is SIP?">
+                            <i class="fas fa-piggy-bank"></i>
+                            What is SIP?
+                        </button>
+                        <button class="quick-btn" data-message="How to start investing?">
+                            <i class="fas fa-chart-line"></i>
+                            How to start investing?
+                        </button>
+                        <button class="quick-btn" data-message="Explain mutual funds">
+                            <i class="fas fa-coins"></i>
+                            Explain mutual funds
+                        </button>
+                        <button class="quick-btn" data-message="Create a budget plan">
+                            <i class="fas fa-calculator"></i>
+                            Create a budget plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-messages"></div>
+
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="typing-indicator hidden">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Section -->
+        <footer class="input-section">
+            <div class="input-container">
+                <div class="voice-status" id="voice-status">
+                    <div class="voice-animation">
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                    </div>
+                    <span id="voice-status-text">Listening...</span>
+                </div>
+                <div class="input-wrapper">
+                    <button id="voice-btn" class="voice-btn" title="Click to speak">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <input 
+                        type="text" 
+                        id="user-input" 
+                        placeholder="Ask me anything about finance..."
+                        maxlength="500"
+                    >
+                    <button id="send-btn" class="send-btn" title="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="disclaimer">
+                        <i class="fas fa-info-circle"></i>
+                        Finanzas provides educational content only. Always consult a financial advisor for personalized advice.
+                    </span>
+                </div>
+            </div>
+        </footer>
+
+        <!-- API Key Prompt Modal -->
+        <div id="api-key-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>API Key Required</h3>
+                </div>
+                <div class="modal-body">
+                    <p>To use Finanzas, you need to provide your Google Gemini API key. This key is stored locally and never sent to our servers.</p>
+                    <div class="setting-group">
+                        <label for="initial-api-key">Gemini API Key:</label>
+                        <div class="input-group">
+                            <input type="password" id="initial-api-key" placeholder="Enter your Gemini API key">
+                            <button id="toggle-initial-api-key" class="btn-icon">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="help-text">
+                            Don't have an API key? 
+                            <a href="https://makersuite.google.com/app/apikey" target="_blank">Get one free from Google AI Studio</a>
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-initial-api-key" class="btn-primary">Start Chatting</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
